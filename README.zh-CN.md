@@ -1,114 +1,34 @@
-<p align="center">
-  <img src="public/skill-atmosphere-logo.png" width="112" alt="Skill Atmosphere 标志" />
-</p>
+# 拿手 · Skill Atmosphere
 
-<h1 align="center">Skill Atmosphere</h1>
+拿手是 macOS 上的个人 Skill 管理工具。找到这台 Mac 已安装的 Skill，给这次任务分好工，再把提示词交给 Codex。
 
-<p align="center">
-  面向 macOS 的安静、local-first AI Skill 工作空间。<br />
-  将本机 Skills、研究意图、Prompt 编译与个人知识收藏组织成一个能力空间。
-</p>
+[English](README.md) · **简体中文**
 
-<p align="center">
-  <a href="README.md">English</a> · <strong>简体中文</strong>
-</p>
+![拿手，macOS 上的个人 Skill 管理工具](public/0.5.75/cover.png)
 
-![Skill Atmosphere Research](screenshots/github-research.png)
+## 0.5.75 内测预览
 
-## 项目简介
+本机候选版为 **0.5.75**，构建号 `20261125.4`，适用于运行 macOS 13.5 或更高版本的 Apple 芯片 Mac。
 
-Skill Atmosphere 不是传统文件管理器，也不是聊天机器人外壳。它以 macOS 工作流为基础，将本机安装的 AI Skills 组织成可以浏览、选择与组合的个人能力空间。
+- **研究**。把已选 Skill 分为主要、辅助和验证。复制提示词或打开 Codex 前，可以核对分工与准确的安装路径。
+- **技能库**。浏览本机安装的 Skill。筛选结果为空时，可以清除筛选条件，接着用原关键词搜索。
+- **收藏**。切回用过的筛选时，接着查看上次的收藏和阅读位置。
+- **一键维护**。核对已知来源，为符合条件的安装备份并更新。本轮结果按安装统计已更新、无需更新和待处理的数量。
+- **使用分析**。分别查看成功复制 Skill 调用、复制提示词和打开 Codex 的次数。点阵展开后可以查看准确的复制次数。
+- **声音与重连**。在设置里调整操作音、维护提醒和减少动态。连接中断时，可以在 App 里重连本机服务，再继续编辑草稿。
 
-用户可以从一句自然语言任务开始。应用会搜索本机 Skill 目录，推荐相关能力，允许用户调整 Skill 的角色，并在保留原始意图的前提下编译结构化 Prompt。本地确定性推荐不需要 API；只有用户自行填写凭据并明确允许传输后，模型增强才会启用。
+![推荐页上可核对各个 Skill 的分工与安装路径](public/0.5.75/research.png)
 
-## 核心体验
+[一键维护预览](public/0.5.75/maintenance.png) · [使用分析预览](public/0.5.75/usage.png)
 
-- **Research**：描述任务、匹配本机 Skills，并编译可执行 Prompt。
-- **System Recommendations**：在空间轨道场景中查看推荐 Skill，并调整其角色。
-- **Library**：扫描 macOS 上真实安装的 Codex 与 Agent Skills，不使用演示目录冒充本机数据。
-- **Favorites**：在本机保存并编辑 Prompt、研究笔记和设计资料。
-- **Settings**：控制氛围、动效、声音、模型连接、传输许可和 Skill 路径。
-- **Offline Preview**：生成不依赖服务器和端口的独立 HTML 文件。
+预览中的 Skill 和使用记录为示例数据。
 
-## 视觉方向
+## 本机数据与任务交接
 
-界面使用冷白留白、淡蓝与淡紫光场、浅桃环境光、雾化 Orb 和克制的空间动效。目标是接近 macOS 与 Vision Pro 工作空间的安静质感，而不是 dashboard、SaaS 后台或高饱和科技界面。
+扫描和匹配本机 Skill 无需模型 API。模型辅助分析使用你填写的凭据，按你同意的范围传输。设置导出和工作区备份会省略 API 凭据。拿手整理提示词，由你在 Codex 里检查和发送。
 
-![本机 Skill Library](screenshots/github-library.png)
+macOS 候选包使用本机测试签名。这个仓库展示项目介绍和内测预览。
 
-## API 与隐私
+## 反馈与权利
 
-本仓库 **不包含任何内置 API Key 或开发者凭据**。
-
-- 本机 Skill 扫描与确定性推荐无需 API。
-- 用户可在 `Settings -> Model & API` 中填写自己的 OpenAI、DeepSeek 或 OpenAI-compatible 凭据。
-- 设置导出与完整工作区备份会自动移除 API 凭据。
-- 只有用户开启传输并主动开始 Research 后，Prompt 才会发送。
-- 发布前可运行 `npm run security:check` 检查公开源码中的疑似凭据。
-
-当前保护方式与限制请阅读[安全说明](SECURITY.zh-CN.md)。
-
-## 技术栈
-
-- React + TypeScript + Vite
-- Motion for React
-- Tauri 2 + Rust
-- Lucide icons
-- CSS 氛围材质与 reduced-motion 支持
-
-## 本地运行
-
-```bash
-npm install
-npm run dev
-```
-
-运行 macOS 开发版：
-
-```bash
-npm run desktop:dev
-```
-
-## 构建
-
-```bash
-# Web 正式构建
-npm run build
-
-# 独立离线 HTML
-npm run build:local
-
-# macOS App
-npm run desktop:app
-```
-
-## 验证
-
-```bash
-npm run security:check
-npm run test:recommendations
-cd src-tauri && cargo test
-```
-
-## 项目结构
-
-```text
-src/components/       界面组件与工作空间页面
-src/lib/              本机扫描、路由和模型适配层
-src/data/             预览数据与 Research Skill 目录
-src-tauri/            macOS 运行时与本机 Skill 扫描器
-scripts/              发布、离线构建、图标和安全工具
-tests/                推荐、Prompt 编译与凭据测试
-```
-
-## 当前状态
-
-Skill Atmosphere 目前处于 beta 阶段。Web 构建主要用于视觉预览与快速调试，macOS App 是主要分发对象。正式公开分发仍需要 Apple Developer ID 签名与 notarization。
-
-## 贡献
-
-欢迎提交 Issue 或 Pull Request。涉及界面的修改应保持 calm、spatial、local-first 的设计原则，并同时检查完整动效与减少动态效果模式。
-
-## License
-
-项目尚未选择许可证。在正式添加许可证之前，源代码默认保留所有权利。
+[提交反馈或报告问题](../../issues)。项目在确定许可证之前保留所有权利。
